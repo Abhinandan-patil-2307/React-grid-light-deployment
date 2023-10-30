@@ -1,0 +1,12 @@
+.Box {
+    height: 4rem;
+    width: 4rem;
+    cursor: pointer;
+}
+
+.Box.active {
+    outline: 0.2rem solid #000;
+}
+.Box.on{
+    background: #3ab75d;
+}
