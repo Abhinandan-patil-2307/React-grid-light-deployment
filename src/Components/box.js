@@ -3,11 +3,10 @@ import "./Box.css";
 const Box = ({ isVisibel }) => {
     if (isVisibel) {
         return (
-            <div className="Box active">
-            </div>
+            <div className="Box"></div>
         )
     } else {
-        return (<div className="Box" ></div>)
+        return (<div ></div>)
     }
 }
 

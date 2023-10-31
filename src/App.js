@@ -3,9 +3,14 @@ import Box from './Components/box';
 import { useRef } from 'react';
 
 function App() {
-
   const record = useRef([]);
   const boxes = [[true, true, true], [true, false, true], [true, true, true]];
+
+  const style = {
+    display: "grid",
+    gap: "0.8rem",
+    gridTemplateColumns: `repeat(${boxes[0].length} , 1fr)`
+  };
 
   const clearRecord = () => {
     const id = setInterval(() => {
@@ -14,35 +19,31 @@ function App() {
 
       if (record.current.length === 0) {
         clearInterval(id);
-        console.log("interval cleared");
       }
-
     }, 1000);
-
   }
 
 
   const domClicked = (e) => {
 
-    if (e?.target?.className === "Box active" && !e.target.classList.contains('on')) {
+    if (e.target.classList.contains("Box") && !e.target.classList.contains('on')) {
       e.target.classList.add('on');
-      record.current.push(e.target)
-    }
+      record.current.push(e.target);
 
-    if (record.current.length >= 8) {
-      clearRecord();
+      if (record.current.length === boxes.flat(1).filter(bx => bx).length) {
+        clearRecord();
+      }
     }
   }
 
   return (
-    <div className="App" onClick={(e) => domClicked(e)}>
-      {
-        boxes.map((row, index) => (
-          <div className="row" key={index}>
-            {row.map((item, index) => (<Box isVisibel={item} key={index} />))}
-          </div>
-        ))
-      }
+    <div className="App" onClick={(e) => domClicked(e)} style={style}>
+      {boxes.flat(1).map((item, index) => (
+        <Box
+          isVisibel={item}
+          key={index}
+        />
+      ))}
     </div>
   );
 }
